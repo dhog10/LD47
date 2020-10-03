@@ -7,6 +7,7 @@ public class AcidPool : MonoBehaviour
     public GameObject m_Plane;
     public float m_DrainDepth = 2f;
     public float m_DrainSpeed = 5f;
+    public AudioSource m_GunkSound;
     public AudioSource m_DrainSound;
 
     private bool m_Drained;
