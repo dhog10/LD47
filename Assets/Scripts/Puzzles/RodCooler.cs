@@ -59,6 +59,11 @@ public class RodCooler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.attachedRigidbody == null)
+        {
+            return;
+        }
+
         var rod = other.attachedRigidbody.GetComponentInChildren<Rod>();
 
         if (rod != null)
@@ -69,6 +74,11 @@ public class RodCooler : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (other.attachedRigidbody == null)
+        {
+            return;
+        }
+
         var rod = other.attachedRigidbody.GetComponentInChildren<Rod>();
 
         if (rod != null && rod == m_Rod)
