@@ -7,9 +7,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     private bool m_Paused;
+    private Usable[] m_Usables;
 
     public bool Paused
         => m_Paused;
+
+    public Usable[] Usables
+        => m_Usables;
 
     private void Awake()
     {
@@ -19,6 +23,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+
+        this.FindUsabled();
     }
 
     public void LockCursor()
@@ -43,5 +49,18 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         m_Paused = false;
+    }
+
+    public Usable GetFocusedUsable()
+    {
+        foreach (var usable in this.Usables)
+        {
+
+        }
+    }
+
+    private void FindUsabled()
+    {
+        m_Usables = GameObject.FindObjectsOfType<Usable>();
     }
 }
