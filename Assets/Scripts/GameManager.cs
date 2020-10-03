@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         m_Paused = false;
     }
 
-    public Usable GetFocusedUsable()
+    public Usable GetFocusedUsable(ArrayList unavailable = null)
     {
         var player = TankCharacterController.Instance;
         var minDistance = Mathf.Infinity;
@@ -84,6 +84,11 @@ public class GameManager : MonoBehaviour
         foreach (var usable in this.Usables)
         {
             if (usable.IsDisabled())
+            {
+                continue;
+            }
+
+            if (unavailable != null && unavailable.Contains(usable))
             {
                 continue;
             }
@@ -131,11 +136,26 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Use"))
         {
-            var usable = this.GetFocusedUsable();
+            var attempts = 0;
+            var used = new ArrayList();
 
-            if (usable != null)
+            while (attempts < 5)
             {
-                usable.Toggle();
+                var usable = this.GetFocusedUsable(used);
+
+                if (usable != null)
+                {
+                    if (usable.Toggle())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        used.Add(usable);
+                    }
+                }
+
+                attempts++;
             }
         }
 

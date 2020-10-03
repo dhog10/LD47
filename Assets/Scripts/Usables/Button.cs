@@ -32,11 +32,11 @@ public class Button : Usable
         this.UpdateButtonObject();
     }
 
-    public override void Activate()
+    public override bool Activate()
     {
         base.Activate();
 
-
+        return true;
     }
 
     private void UpdateButtonObject()
