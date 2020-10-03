@@ -2,31 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TaskIndicator : MonoBehaviour
+public class TaskIndicator : Indicator
 {
-    public Material m_CompleteMaterial;
-    public Material m_IncompleteMaterial;
-    public MeshRenderer m_IndicatorMesh;
+    public bool m_StartComplete;
+    [Range(0f, 1f)]
+    public float m_StartToggledChance = 0f;
 
-    void Start()
+    private bool m_Complete;
+
+    public bool IsComplete
+        => m_Complete;
+
+    public override void Start()
     {
-        
+        base.Start();
+
+        if (m_StartComplete) {
+            m_Complete = true;
+        }
+
+        if (m_StartToggledChance > 0f && Random.Range(0f, 1f) <= m_StartToggledChance)
+        {
+            this.Toggle();
+        }
     }
 
-    void Update()
+    public void Toggle()
     {
-        if (this.IsComplete())
+        if (m_Complete)
         {
-            m_IndicatorMesh.sharedMaterial = m_CompleteMaterial;
+            this.Uncomplete();
         }
         else
         {
-            m_IndicatorMesh.sharedMaterial = m_IncompleteMaterial;
+            this.Complete();
         }
     }
 
-    public bool IsComplete()
+    public void Complete()
     {
-        return false;
+        m_Complete = true;
+    }
+
+    public void Uncomplete()
+    {
+        m_Complete = false;
+    }
+
+    public override bool IsOn()
+    {
+        return this.IsComplete;
     }
 }
