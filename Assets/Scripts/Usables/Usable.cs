@@ -60,7 +60,7 @@ public class Usable : MonoBehaviour
             }
             else
             {
-                this.Activate();
+                return this.Activate();
             }
 
             return true;
@@ -74,7 +74,7 @@ public class Usable : MonoBehaviour
         return false;
     }
 
-    public virtual void Activate()
+    public virtual bool Activate()
     {
         m_Active = true;
         m_ActiveTime = Time.time;
@@ -86,6 +86,8 @@ public class Usable : MonoBehaviour
         }
 
         m_ActivateEvent?.Invoke();
+
+        return true;
     }
 
     public virtual void Deactivate()
