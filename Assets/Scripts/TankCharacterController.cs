@@ -9,6 +9,7 @@ public class TankCharacterController : MonoBehaviour
     [Header("Setup")]
     public GameObject m_CameraObject;
     public GameObject m_VisualElements;
+    public GameObject m_HoldableObject;
 
     [Header("Movement")]
     public float m_MovementSpeed = 10f;
@@ -29,6 +30,8 @@ public class TankCharacterController : MonoBehaviour
     [Header("Misc")]
     public float m_KeyMovement = -0.2f;
 
+    private Holdable m_Holdable;
+
     private bool m_Crouched;
     private Quaternion m_CurrentVisualRotationTarget;
     private Vector3 m_InputMovementVector;
@@ -43,6 +46,12 @@ public class TankCharacterController : MonoBehaviour
 
     private Rigidbody m_Rigidbody;
     private Animator m_Animator;
+
+    public Holdable Holdable
+        => m_Holdable;
+
+    public bool IsHolding
+        => this.Holdable != null;
 
     public float MovementSpeed
         => m_Crouched ? m_MovementSpeedCrouch : m_MovementSpeed;
@@ -65,6 +74,11 @@ public class TankCharacterController : MonoBehaviour
         GameManager.Instance.LockCursor();
     }
 
+    private void OnEnable()
+    {
+        Instance = this;
+    }
+
     private void Update()
     {
         this.ProcessInput();
@@ -83,6 +97,40 @@ public class TankCharacterController : MonoBehaviour
         m_Alive = false;
 
         SoundManager.Instance.SetMusicType(MusicType.Death);
+    }
+
+    public void Pickup(Holdable holdable)
+    {
+        this.Drop();
+
+        m_Holdable = holdable;
+        m_Holdable.transform.SetParent(this.m_HoldableObject.transform);
+        m_Holdable.transform.position = m_HoldableObject.transform.position;
+        m_Holdable.Freeze();
+    }
+
+    public void Drop()
+    {
+        if (this.Holdable == null)
+        {
+            return;
+        }
+
+        this.Holdable.transform.SetParent(transform.root);
+        this.Holdable.Unfreeze();
+
+        var fwd = new Vector3(m_CameraVector.x, 0f, m_CameraVector.z).normalized;
+        var pos = m_HoldableObject.transform.position + fwd * 0.8f;
+
+        RaycastHit hit;
+        if (Physics.Raycast(m_HoldableObject.transform.position, fwd, out hit, 0.8f))
+        {
+            pos = hit.point;
+        }
+
+        this.Holdable.transform.position = pos;
+
+        m_Holdable = null;
     }
 
     public void Revive()
