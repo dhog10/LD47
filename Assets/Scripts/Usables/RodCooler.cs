@@ -69,6 +69,7 @@ public class RodCooler : MonoBehaviour
         if (rod != null)
         {
             m_Rod = rod;
+            m_Rod.SetCooler(this);
         }
     }
 
@@ -84,6 +85,7 @@ public class RodCooler : MonoBehaviour
         if (rod != null && rod == m_Rod)
         {
             m_Rod = null;
+            rod.SetCooler(this);
         }
     }
 

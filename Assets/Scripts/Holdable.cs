@@ -37,4 +37,9 @@ public class Holdable : MonoBehaviour
             collider.enabled = true;
         }
     }
+
+    public virtual bool CanHold()
+    {
+        return true;
+    }
 }

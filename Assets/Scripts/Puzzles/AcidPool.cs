@@ -29,7 +29,7 @@ public class AcidPool : MonoBehaviour
             Debug.Log((m_DrainDepth / m_DrainSpeed) * 0.75f);
 
             var diff = Time.time - m_DrainedTime;
-            return diff >= (m_DrainDepth / m_DrainSpeed) * 0.5f;
+            return diff >= (m_DrainDepth / m_DrainSpeed) * 0.4f;
         }
     }
 

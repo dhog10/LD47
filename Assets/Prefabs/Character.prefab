@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 5191337996323811995}
   m_Layer: 9
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: RodSafe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 5453329590280049657}
   m_Layer: 9
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: RodSafe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

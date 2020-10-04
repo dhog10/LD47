@@ -133,6 +133,11 @@ public class GameManager : MonoBehaviour
                 continue;
             }
 
+            if (!holdable.CanHold())
+            {
+                continue;
+            }
+
             var distance = Vector3.Distance(holdable.transform.position, player.transform.position);
 
             if (distance < holdable.UseDistance && distance < minDistance)
