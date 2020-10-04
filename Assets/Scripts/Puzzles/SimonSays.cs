@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#pragma warning disable 0649
+
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,7 +15,6 @@ public class SimonSays : MonoBehaviour
     [SerializeField] private uint m_RequiredSuccessiveCorrect = 4;
     [SerializeField] private float m_InitialDelay = 1f;
     [SerializeField] private float m_SymbolRevealTime = 3f;
-    [SerializeField] private float m_MainScreenOnTime = 3f;
     [SerializeField] private float m_AnswerTime = 3f;
     [SerializeField] private float m_ResultsDisplayedTime = 2f;
     [SerializeField] private float m_RoundDelayTime = 2f;
@@ -128,3 +129,5 @@ public class SimonSays : MonoBehaviour
         m_UserSelecting = false;
     }
 }
+
+#pragma warning restore 0649
