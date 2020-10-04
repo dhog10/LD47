@@ -12,9 +12,26 @@ public class AcidPool : MonoBehaviour
 
     private bool m_Drained;
     private Vector3 m_OriginalPlanePos;
+    private float m_DrainedTime;
 
     public bool IsDrained
         => m_Drained;
+
+    public bool IsFullyDrained
+    {
+        get
+        {
+            if (!this.IsDrained)
+            {
+                return false;
+            }
+
+            Debug.Log((m_DrainDepth / m_DrainSpeed) * 0.75f);
+
+            var diff = Time.time - m_DrainedTime;
+            return diff >= (m_DrainDepth / m_DrainSpeed) * 0.5f;
+        }
+    }
 
     private void Start()
     {
@@ -30,6 +47,7 @@ public class AcidPool : MonoBehaviour
     public void Drain()
     {
         m_Drained = true;
+        m_DrainedTime = Time.time;
 
         if (m_DrainSound != null)
         {
@@ -40,6 +58,11 @@ public class AcidPool : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (this.IsFullyDrained)
+        {
+            return;
+        }
+
         if (other.attachedRigidbody == null)
         {
             return;

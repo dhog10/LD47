@@ -43,7 +43,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6ed895268ba59fc40866018b55d5a0e0, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.814
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -546,8 +546,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Plane: {fileID: 529641209692970637}
-  m_DrainDepth: 3
-  m_DrainSpeed: 0.09
+  m_DrainDepth: 2
+  m_DrainSpeed: 0.2
   m_GunkSound: {fileID: 0}
   m_DrainSound: {fileID: 390316228}
 --- !u!54 &529641210245429351
