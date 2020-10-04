@@ -36,6 +36,7 @@ public class TankCharacterController : MonoBehaviour
     private bool m_Crouched;
     private Quaternion m_CurrentVisualRotationTarget;
     private Vector3 m_InputMovementVector;
+    private Vector3 m_LookDirection;
     private Vector2 m_CameraAngle = new Vector2(45f, 0f);
     private Vector2 m_CameraTargetAngle;
     private Quaternion m_CameraRotation;
@@ -149,7 +150,7 @@ public class TankCharacterController : MonoBehaviour
         this.Holdable.transform.SetParent(transform.root);
         this.Holdable.Unfreeze();
 
-        var fwd = new Vector3(m_CameraVector.x, 0f, m_CameraVector.z).normalized;
+        var fwd = m_LookDirection.normalized;
         var pos = m_HoldableObject.transform.position + fwd * 0.8f;
 
         RaycastHit hit;
@@ -204,6 +205,11 @@ public class TankCharacterController : MonoBehaviour
         m_InputMovementVector = forwardVector * forward + rightVector * right;
         m_InputMovementVector = m_InputMovementVector.normalized;
         m_InputMovementVector.Scale(new Vector3(this.MovementSpeed, this.MovementSpeed, this.MovementSpeed));
+
+        if (m_InputMovementVector.magnitude > 0.01f)
+        {
+            m_LookDirection = m_InputMovementVector.normalized;
+        }
 
         var mouseX = Input.GetAxis("Mouse X");
         var mouseY = Input.GetAxis("Mouse Y");

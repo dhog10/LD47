@@ -5,6 +5,8 @@ using UnityEngine;
 public class Rod : Holdable
 {
     public AudioSource m_BreakSound;
+    public GameObject m_ParticleObject;
+    public GameObject m_Capsule;
 
     private RodCooler m_Cooler;
     private bool m_Broken;
@@ -42,12 +44,12 @@ public class Rod : Holdable
         }
 
         var obj = collision.gameObject;
-        Debug.Log(obj.tag);
         if (!this.IsRodSafe(obj))
         {
             m_BreakSound.Play();
             m_Broken = true;
-
+            m_ParticleObject.SetActive(true);
+            m_Capsule.SetActive(false);
             StartCoroutine(this.DeleteRoutine());
         }
     }
