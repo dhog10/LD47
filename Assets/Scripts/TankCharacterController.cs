@@ -127,7 +127,7 @@ public class TankCharacterController : MonoBehaviour
     {
         m_Alive = false;
 
-        SoundManager.Instance.SetMusicType(MusicType.Death);
+        SoundManager.Instance?.SetMusicType(MusicType.Death);
     }
 
     public void Pickup(Holdable holdable)

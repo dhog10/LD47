@@ -39,4 +39,19 @@ public class SteamPipe : MonoBehaviour
     {
         m_Leaking = seal;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.attachedRigidbody == null || !m_Leaking)
+        {
+            return;
+        }
+
+        var player = other.attachedRigidbody.GetComponentInChildren<TankCharacterController>();
+        if (player != null)
+        {
+            player.Kill();
+            GameManager.Instance.EndGame(false);
+        }
+    }
 }
