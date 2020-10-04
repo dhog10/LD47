@@ -10,6 +10,7 @@ public class TankCharacterController : MonoBehaviour
     public GameObject m_CameraObject;
     public GameObject m_VisualElements;
     public GameObject m_HoldableObject;
+    public CapsuleCollider m_Collider;
 
     [Header("Movement")]
     public float m_MovementSpeed = 10f;
@@ -59,8 +60,37 @@ public class TankCharacterController : MonoBehaviour
     public bool Alive
         => m_Alive;
 
+    public bool IsFalling
+    {
+        get
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(m_Collider.transform.position - new Vector3(0f, m_Collider.height * 0.4f, 0f), -Vector3.up, out hit, m_Collider.height * 0.2f))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            GameObject.DestroyImmediate(gameObject);
+        }
+    }
     private void Start()
     {
+        if (Instance != null && Instance != this)
+        {
+            GameObject.DestroyImmediate(gameObject);
+            return;
+        }
+
         DontDestroyOnLoad(gameObject);
         Instance = this;
 
@@ -146,6 +176,7 @@ public class TankCharacterController : MonoBehaviour
         m_Animator.SetFloat("ForwardSpeed", Mathf.Clamp(forwardSpeed / this.MovementSpeed, 0f, 1f));
         m_Animator.SetBool("Crouched", m_Crouched);
         m_Animator.SetBool("Alive", this.Alive);
+        m_Animator.SetBool("Falling", this.IsFalling);
     }
 
     private void ProcessInput()
@@ -160,6 +191,12 @@ public class TankCharacterController : MonoBehaviour
         var forward = Input.GetAxis("Vertical");
         var right = Input.GetAxis("Horizontal");
 
+        if (GameManager.Instance.IsGameOver)
+        {
+            forward = 0f;
+            right = 0f;
+        }
+
         var cameraRotation2D = Quaternion.Euler(new Vector3(0f, m_CameraAngle.y, 0f));
         var forwardVector = cameraRotation2D * Vector3.forward;
         var rightVector = cameraRotation2D * Vector3.right;
@@ -171,6 +208,13 @@ public class TankCharacterController : MonoBehaviour
         var mouseX = Input.GetAxis("Mouse X");
         var mouseY = Input.GetAxis("Mouse Y");
         var mouseScroll = -Input.GetAxis("Mouse ScrollWheel");
+
+        if (GameManager.Instance.IsGameOver)
+        {
+            mouseX = 0f;
+            mouseY = 0f;
+            mouseScroll = 0f;
+        }
 
         m_CameraTargetAngle.x -= mouseY * m_CameraSensitivity;
         m_CameraTargetAngle.y += mouseX * m_CameraSensitivity;
@@ -225,6 +269,7 @@ public class TankCharacterController : MonoBehaviour
 
         var adjustAmount = Mathf.Min(diff.magnitude, m_Acceleration);
         var adjustVelocity = diff.normalized * adjustAmount;
+        adjustVelocity.y = 0f;
 
         m_Rigidbody.AddForce(adjustVelocity, ForceMode.VelocityChange);
     }

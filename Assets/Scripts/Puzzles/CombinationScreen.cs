@@ -16,6 +16,16 @@ public class CombinationScreen : MonoBehaviour
 
     public void SetIndex(int index)
     {
+        if (m_Text == null)
+        {
+            m_Text = this.GetComponentInChildren<TextMeshProUGUI>();
+
+            if (m_Text == null)
+            {
+                return;
+            }
+        }
+
         m_Text.text = index.ToString();
     }
 

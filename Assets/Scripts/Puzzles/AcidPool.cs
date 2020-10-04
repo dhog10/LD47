@@ -48,7 +48,7 @@ public class AcidPool : MonoBehaviour
         var player = other.attachedRigidbody.GetComponentsInChildren<TankCharacterController>();
         if (player != null)
         {
-            // TODO: End game
+            GameManager.Instance.EndGame(false);
         }
     }
 }

@@ -1,15 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    
+
+    public string m_GameScene;
+
     private bool m_Paused;
     private Usable[] m_Usables;
     private Holdable[] m_Holdables;
     private float m_LastSearch;
+    private bool m_GameOver;
+
+    public bool IsGameOver
+        => m_GameOver;
 
     public bool Paused
         => m_Paused;
@@ -22,6 +29,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            GameObject.DestroyImmediate(gameObject);
+            return;
+        }
+
         Instance = this;
     }
 
@@ -130,6 +143,45 @@ public class GameManager : MonoBehaviour
         }
 
         return minHoldable;
+    }
+
+    public void EndGame(bool win)
+    {
+        m_GameOver = true;
+
+        if (win)
+        {
+
+        }
+        else
+        {
+            GameOver.Instance.Enable(true);
+        }
+    }
+
+    public void StartGame(bool force = false)
+    {
+        if (!force && !m_GameOver)
+        {
+            return;
+        }
+
+        m_GameOver = false;
+        SceneManager.LoadScene(m_GameScene, LoadSceneMode.Single);
+
+        this.SpawnPlayer();
+    }
+
+    public void SpawnPlayer()
+    {
+        var spawns = GameObject.FindObjectsOfType<SpawnPoint>();
+        if (spawns.Length == 0)
+        {
+            return;
+        }
+
+        var spawn = spawns[Random.Range(0, spawns.Length)];
+        TankCharacterController.Instance.transform.position = spawn.transform.position;
     }
 
     private void ProcessInteractions()
