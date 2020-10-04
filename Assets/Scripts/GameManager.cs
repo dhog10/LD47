@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Instance = this; ;
+        Instance = this;
     }
 
     private void Start()
