@@ -96,6 +96,11 @@ public class GameManager : MonoBehaviour
 
         foreach (var usable in this.Usables)
         {
+            if (!usable.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
             if (usable.IsDisabled())
             {
                 continue;
@@ -152,6 +157,8 @@ public class GameManager : MonoBehaviour
 
     public void EndGame(bool win)
     {
+        Debug.Log("EndGame " + win);
+
         m_GameOver = true;
 
         if (win)
@@ -179,6 +186,8 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayer()
     {
+        TankCharacterController.Instance.Revive();
+
         var spawns = GameObject.FindObjectsOfType<SpawnPoint>();
         if (spawns.Length == 0)
         {

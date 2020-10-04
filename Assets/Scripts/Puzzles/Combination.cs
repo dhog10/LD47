@@ -73,7 +73,7 @@ public class Combination : MonoBehaviour
             }
         }
 
-        this.Evaluate();
+        m_CombinationIndex = 0;
     }
 
     void Update()

@@ -68,9 +68,10 @@ public class AcidPool : MonoBehaviour
             return;
         }
 
-        var player = other.attachedRigidbody.GetComponentsInChildren<TankCharacterController>();
+        var player = other.attachedRigidbody.GetComponent<TankCharacterController>();
         if (player != null)
         {
+            TankCharacterController.Instance.Kill();
             GameManager.Instance.EndGame(false);
         }
     }

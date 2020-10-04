@@ -47,7 +47,7 @@ public class SteamPipe : MonoBehaviour
             return;
         }
 
-        var player = other.attachedRigidbody.GetComponentInChildren<TankCharacterController>();
+        var player = other.attachedRigidbody.GetComponent<TankCharacterController>();
         if (player != null)
         {
             player.Kill();
