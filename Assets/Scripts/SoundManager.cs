@@ -14,11 +14,23 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            GameObject.DestroyImmediate(gameObject);
+            return;
+        }
+
         Instance = this;
     }
 
     private void Start()
     {
+        if (Instance != null && Instance != this)
+        {
+            GameObject.DestroyImmediate(gameObject);
+            return;
+        }
+
         DontDestroyOnLoad(gameObject);
 
         this.SetMusicType(m_DefaultMusicType);

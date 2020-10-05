@@ -1,6 +1,6 @@
 ﻿public enum MusicType
 {
-    Sneak,
-    Chase,
+    Main,
+    Menu,
     Death,
 }

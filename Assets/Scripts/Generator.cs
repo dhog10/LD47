@@ -14,11 +14,13 @@ public class Generator : MonoBehaviour
 
     private ParticleSystem[] m_ParticleFires;
     private bool m_Exploded;
+    private bool m_WasComplete;
 
     private void Awake()
     {
         Instance = this;
         m_Exploded = false;
+        m_WasComplete = false;
     }
 
     void Start()
@@ -31,33 +33,68 @@ public class Generator : MonoBehaviour
         }
 
         m_Exploded = false;
+        m_WasComplete = false;
     }
 
     void Update()
     {
         var countdown = Countdown.Instance;
+        var complete = true;
+
+        foreach (var indicator in m_Tasks)
+        {
+            if (!indicator.IsComplete)
+            {
+                complete = false;
+                break;
+            }
+        }
 
         if (countdown != null)
         {
-            var severity = Mathf.Round((1f - (float)countdown.Time / (float)countdown.Duration) * m_ParticleFires.Length);
-
-            if (!m_AlarmSound.isPlaying && severity / m_ParticleFires.Length > 0.7f)
+            if (complete)
             {
-                m_AlarmSound.Play();
-            }
-
-            for (var i = 0; i < severity; i++)
-            {
-                if (!m_ParticleFires[i].isPlaying)
+                if (m_AlarmSound.isPlaying)
                 {
-                    m_ParticleFires[i].Play();
+                    m_AlarmSound.Stop();
+                }
+
+                foreach (var fire in m_ParticleFires)
+                {
+                    if (fire.isPlaying)
+                    {
+                        fire.Stop();
+                    }
+                }
+
+                if (!m_WasComplete)
+                {
+                    m_WasComplete = true;
+                    GameManager.Instance.EndGame(true);
                 }
             }
-
-            if (!m_Exploded && countdown.Time <= 0)
+            else
             {
-                m_Exploded = true;
-                this.Explode();
+                var severity = Mathf.Round((1f - (float)countdown.Time / (float)countdown.Duration) * m_ParticleFires.Length);
+
+                if (!m_AlarmSound.isPlaying && severity / m_ParticleFires.Length > 0.7f)
+                {
+                    m_AlarmSound.Play();
+                }
+
+                for (var i = 0; i < severity; i++)
+                {
+                    if (!m_ParticleFires[i].isPlaying)
+                    {
+                        m_ParticleFires[i].Play();
+                    }
+                }
+
+                if (!m_Exploded && countdown.Time <= 0)
+                {
+                    m_Exploded = true;
+                    this.Explode();
+                }
             }
         }
     }

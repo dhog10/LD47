@@ -541,7 +541,11 @@ MonoBehaviour:
   m_ExplosionSound: {fileID: 892206756}
   m_AlarmSound: {fileID: 238811871}
   m_FireEffects: {fileID: 630715916}
-  m_Tasks: []
+  m_Tasks:
+  - {fileID: 6966284805586640755}
+  - {fileID: 6966284806775632765}
+  - {fileID: 6966284806205466038}
+  - {fileID: 6966284805701784265}
 --- !u!1001 &6966284804966018220
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -22,11 +22,23 @@ public class GameOver : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            GameObject.DestroyImmediate(gameObject);
+            return;
+        }
+
         Instance = this;
 
     }
     private void OnEnable()
     {
+        if (Instance != null && Instance != this)
+        {
+            GameObject.DestroyImmediate(gameObject);
+            return;
+        }
+
         Instance = this;
     }
 

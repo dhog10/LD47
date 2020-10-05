@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public string m_MenuScene;
     public string m_GameScene;
 
     private bool m_Paused;
@@ -163,7 +164,7 @@ public class GameManager : MonoBehaviour
 
         if (win)
         {
-
+            GameWin.Instance.Enable(true);
         }
         else
         {
@@ -180,6 +181,16 @@ public class GameManager : MonoBehaviour
 
         m_GameOver = false;
         SceneManager.LoadScene(m_GameScene, LoadSceneMode.Single);
+        SoundManager.Instance.SetMusicType(MusicType.Main);
+
+        this.SpawnPlayer();
+    }
+
+    public void StartMenu()
+    {
+        m_GameOver = false;
+        SceneManager.LoadScene(m_MenuScene, LoadSceneMode.Single);
+        SoundManager.Instance.SetMusicType(MusicType.Menu);
 
         this.SpawnPlayer();
     }
@@ -188,7 +199,10 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.Instance?.ResetSounds();
         TankCharacterController.Instance.Revive();
+    }
 
+    private void OnLevelWasLoaded(int level)
+    {
         var spawns = GameObject.FindObjectsOfType<SpawnPoint>();
         if (spawns.Length == 0)
         {
