@@ -7,6 +7,8 @@ public class Generator : MonoBehaviour
     public static Generator Instance;
 
     public AudioSource m_TaskActivateSound;
+    public AudioSource m_ExplosionSound;
+    public AudioSource m_AlarmSound;
     public GameObject m_FireEffects;
     public TaskIndicator[] m_Tasks;
 
@@ -44,6 +46,13 @@ public class Generator : MonoBehaviour
             }
         }
         
+    }
+
+    public void Explode()
+    {
+        m_ExplosionSound?.Play();
+        TankCharacterController.Instance.Kill();
+        GameManager.Instance.EndGame(false);
     }
 
     public void PlayTaskSound()
