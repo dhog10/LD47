@@ -41,15 +41,8 @@ public class SimonSays : MonoBehaviour
         }
     }
 
-    //public void StartGame()
-    //{
-    //    if (m_InProgress || m_Finished)
-    //    {
-    //        return;
-    //    }
-
-    //    StartCoroutine(this.Puzzle());
-    //}
+    private void OnDestroy()
+        => StopAllCoroutines();
 
     private IEnumerator Puzzle()
     {
@@ -93,9 +86,15 @@ public class SimonSays : MonoBehaviour
             yield return new WaitUntil(() => m_UserSelecting == false);
             StopCoroutine(userSelectingRoutine);
 
-            m_Screens[m_SelectedScreenIndex].material = m_Symbols[symbolIndices[m_SelectedScreenIndex]];
+            if (m_SelectedScreenIndex != -1)
+            {
+                m_Screens[m_SelectedScreenIndex].material = m_Symbols[symbolIndices[m_SelectedScreenIndex]];
+            }
             yield return new WaitForSeconds(m_ResultsDisplayedTime);
-            m_Screens[m_SelectedScreenIndex].material = originalScreenMaterials[m_SelectedScreenIndex];
+            if (m_SelectedScreenIndex != -1)
+            {
+                m_Screens[m_SelectedScreenIndex].material = originalScreenMaterials[m_SelectedScreenIndex];
+            }
 
             m_MainScreen.material = originalMainScreenMaterial;
 
