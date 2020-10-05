@@ -9,6 +9,8 @@ public class Indicator : MonoBehaviour
     public Material m_DisabledMaterial;
     public MeshRenderer m_IndicatorMesh;
 
+    private bool m_Activated;
+
     public virtual void Start()
     {
 
@@ -38,11 +40,16 @@ public class Indicator : MonoBehaviour
 
     public virtual bool IsOn()
     {
-        return false;
+        return m_Activated;
     }
 
     public virtual bool IsDisabled()
     {
         return false;
+    }
+
+    public void ActivateIndicator(bool active)
+    {
+        m_Activated = active;
     }
 }

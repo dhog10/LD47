@@ -39,6 +39,11 @@ public class Countdown : MonoBehaviour
         Instance = this;
     }
 
+    public void TakeTime(int time)
+    {
+        m_CurrentTime -= time;
+    }
+
     private IEnumerator CountdownRoutine()
     {
         m_CurrentTime = m_CountdownDuration;
