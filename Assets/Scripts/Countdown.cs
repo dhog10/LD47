@@ -41,7 +41,7 @@ public class Countdown : MonoBehaviour
 
     public void TakeTime(int time)
     {
-        m_CurrentTime -= time;
+        m_CurrentTime = Mathf.Max(0, m_CurrentTime - time);
     }
 
     private IEnumerator CountdownRoutine()
