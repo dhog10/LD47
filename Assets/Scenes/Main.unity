@@ -5901,6 +5901,11 @@ PrefabInstance:
       propertyPath: m_ButtonPressObject
       value: 
       objectReference: {fileID: 2105524229}
+    - target: {fileID: 2369695568311236595, guid: 1626d403500b82343ac1f17cac99d451,
+        type: 3}
+      propertyPath: m_CanDeactivate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1626d403500b82343ac1f17cac99d451, type: 3}
 --- !u!1 &592292614
