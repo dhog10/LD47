@@ -2420,7 +2420,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146317716}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.000000104308114}
-  m_LocalPosition: {x: -2.767, y: 12.77, z: -5.152}
+  m_LocalPosition: {x: -7.935, y: 12.77, z: -9.676}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 1675243901}
@@ -2441,7 +2441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_OnMaterial: {fileID: 2100000, guid: 0d40904ad2b97d74eaedb425c4de33d2, type: 2}
-  m_OffMaterial: {fileID: 2100000, guid: c803348351c5b164484980f6462a60bb, type: 2}
+  m_OffMaterial: {fileID: 2100000, guid: 6a250eb225688ae46acfcd732aa68aa5, type: 2}
   m_DisabledMaterial: {fileID: 2100000, guid: 6a250eb225688ae46acfcd732aa68aa5, type: 2}
   m_IndicatorMesh: {fileID: 697386065}
 --- !u!1 &148214585
@@ -3418,7 +3418,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 260272369}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.000000104308114}
-  m_LocalPosition: {x: -2.767, y: 12.77, z: -6.6520004}
+  m_LocalPosition: {x: -7.9349995, y: 12.77, z: -11.176}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 481037790}
@@ -3439,7 +3439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_OnMaterial: {fileID: 2100000, guid: 0d40904ad2b97d74eaedb425c4de33d2, type: 2}
-  m_OffMaterial: {fileID: 2100000, guid: c803348351c5b164484980f6462a60bb, type: 2}
+  m_OffMaterial: {fileID: 2100000, guid: 6a250eb225688ae46acfcd732aa68aa5, type: 2}
   m_DisabledMaterial: {fileID: 2100000, guid: 6a250eb225688ae46acfcd732aa68aa5, type: 2}
   m_IndicatorMesh: {fileID: 39760}
 --- !u!1 &261234209
@@ -10270,10 +10270,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1589299032, guid: f53033088cc502741b313cc958d4f3e3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1428130461821568776, guid: f53033088cc502741b313cc958d4f3e3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11638,7 +11634,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986826320}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.000000104308114}
-  m_LocalPosition: {x: -2.767, y: 12.77, z: -5.9020004}
+  m_LocalPosition: {x: -7.9349995, y: 12.77, z: -10.426}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 937770676}
@@ -11659,7 +11655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_OnMaterial: {fileID: 2100000, guid: 0d40904ad2b97d74eaedb425c4de33d2, type: 2}
-  m_OffMaterial: {fileID: 2100000, guid: c803348351c5b164484980f6462a60bb, type: 2}
+  m_OffMaterial: {fileID: 2100000, guid: 6a250eb225688ae46acfcd732aa68aa5, type: 2}
   m_DisabledMaterial: {fileID: 2100000, guid: 6a250eb225688ae46acfcd732aa68aa5, type: 2}
   m_IndicatorMesh: {fileID: 1107868380}
 --- !u!1001 &987389078
