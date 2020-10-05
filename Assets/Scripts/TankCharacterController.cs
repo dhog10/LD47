@@ -225,7 +225,7 @@ public class TankCharacterController : MonoBehaviour
         var mouseY = Input.GetAxis("Mouse Y");
         var mouseScroll = -Input.GetAxis("Mouse ScrollWheel");
 
-        if (GameManager.Instance.IsGameOver)
+        if (GameManager.Instance.IsGameOver || Cursor.lockState == CursorLockMode.None)
         {
             mouseX = 0f;
             mouseY = 0f;
