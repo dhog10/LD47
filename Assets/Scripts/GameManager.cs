@@ -174,9 +174,34 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(bool force = false)
     {
+        Debug.Log("Start game");
+
         if (!force && !m_GameOver)
         {
             return;
+        }
+
+        if (SceneManager.GetActiveScene().name == m_GameScene)
+        {
+            m_GameOver = false;
+            SceneManager.LoadScene(m_GameScene, LoadSceneMode.Single);
+            SoundManager.Instance.SetMusicType(MusicType.Main);
+
+            this.SpawnPlayer();
+        }
+        else
+        {
+            StartCoroutine(this.StartGameCoroutine());
+        }
+    }
+
+    public IEnumerator StartGameCoroutine()
+    {
+        FadeBlack.Instance.Fade();
+
+        while (!FadeBlack.Instance.m_FullyFaded)
+        {
+            yield return new WaitForSeconds(0.1f);
         }
 
         m_GameOver = false;
@@ -184,6 +209,8 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.SetMusicType(MusicType.Main);
 
         this.SpawnPlayer();
+
+        FadeBlack.Instance.Unfade();
     }
 
     public void StartMenu()
