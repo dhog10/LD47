@@ -7,7 +7,10 @@ public class Generator : MonoBehaviour
     public static Generator Instance;
 
     public AudioSource m_TaskActivateSound;
+    public GameObject m_FireEffects;
     public TaskIndicator[] m_Tasks;
+
+    private ParticleSystem[] m_ParticleFires;
 
     private void Awake()
     {
@@ -16,11 +19,30 @@ public class Generator : MonoBehaviour
 
     void Start()
     {
-        
+        m_ParticleFires = m_FireEffects.GetComponentsInChildren<ParticleSystem>();
+
+        foreach (var fire in m_ParticleFires)
+        {
+            fire.Stop();
+        }
     }
 
     void Update()
     {
+        var countdown = Countdown.Instance;
+
+        if (countdown != null)
+        {
+            var severity = Mathf.Round((1f - (float)countdown.Time / (float)countdown.Duration) * m_ParticleFires.Length);
+
+            for (var i = 0; i < severity; i++)
+            {
+                if (!m_ParticleFires[i].isPlaying)
+                {
+                    m_ParticleFires[i].Play();
+                }
+            }
+        }
         
     }
 
