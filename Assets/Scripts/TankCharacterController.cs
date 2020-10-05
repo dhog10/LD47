@@ -254,6 +254,14 @@ public class TankCharacterController : MonoBehaviour
 
         m_CameraObject.transform.localPosition = -m_CameraVector * m_CameraZoom;
         m_CameraObject.transform.rotation = m_CameraRotation;
+
+        var toCamera = (m_CameraObject.transform.position - m_CameraObject.transform.parent.position);
+
+        RaycastHit hit;
+        if (Physics.Raycast(m_CameraObject.transform.parent.position, toCamera.normalized, out hit, toCamera.magnitude))
+        {
+            m_CameraObject.transform.position = m_CameraObject.transform.parent.position + toCamera.normalized * hit.distance * 0.85f;
+        }
     }
 
     private void ProcessVisualElements()
