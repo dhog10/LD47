@@ -19,6 +19,7 @@ public class GameWin : MonoBehaviour
     private int m_LetterIndex;
     private float m_Alpha;
     private float m_ResetTime;
+    private int m_SecondsLeft;
 
     private void Awake()
     {
@@ -69,14 +70,16 @@ public class GameWin : MonoBehaviour
             m_Alpha = Mathf.Max(m_Alpha - Time.deltaTime, 0f);
         }
 
+        var text = m_OriginalText + " With " + m_SecondsLeft + " Seconds spare!";
+
         if (m_Enabled && Time.time - m_LastLetter > m_LetterInterval)
         {
-            if (m_LetterIndex == m_OriginalText.Length - 2)
+            if (m_LetterIndex == text.Length - 2)
             {
                 m_ResetTime = Time.time;
             }
 
-            if (m_LetterIndex >= m_OriginalText.Length)
+            if (m_LetterIndex >= text.Length)
             {
                 if (Time.time - m_ResetTime > m_ResetDelay)
                 {
@@ -90,13 +93,13 @@ public class GameWin : MonoBehaviour
             }
         }
 
-        if (!m_Enabled && m_LetterIndex > 0 && Time.time - m_LastLetter > m_LetterInterval * 0.3f)
+        if (!m_Enabled && m_LetterIndex > 0 && Time.time - m_LastLetter > m_LetterInterval * 0.15f)
         {
             m_LastLetter = Time.time;
             m_LetterIndex--;
         }
 
-        m_Text.text = m_OriginalText.Substring(0, m_LetterIndex);
+        m_Text.text = text.Substring(0, m_LetterIndex);
         m_Panel.color = new Color(m_PanelColor.r, m_PanelColor.g, m_PanelColor.b, m_Alpha);
     }
 
@@ -104,5 +107,10 @@ public class GameWin : MonoBehaviour
     {
         m_Alpha = 0f;
         m_Enabled = enabled;
+        
+        if (Countdown.Instance != null)
+        {
+            m_SecondsLeft = Countdown.Instance.Time;
+        }
     }
 }

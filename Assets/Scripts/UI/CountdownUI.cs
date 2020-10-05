@@ -15,6 +15,6 @@ public class CountdownUI : MonoBehaviour
     void Update()
     {
         var text = Countdown.Instance == null ? "" : Countdown.Instance.Time.ToString("00");
-        m_Text.text = text;
+        m_Text.text = GameManager.Instance.IsGameOver ? "" : text;
     }
 }
