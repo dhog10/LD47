@@ -19,6 +19,9 @@ public class SimonSays : MonoBehaviour
     [SerializeField] private float m_ResultsDisplayedTime = 2f;
     [SerializeField] private float m_RoundDelayTime = 2f;
     [Space(5)]
+    [SerializeField] private AudioSource m_SuccessSound;
+    [SerializeField] private AudioSource m_FailureSound;
+    [Space(5)]
     [SerializeField] private UnityEvent m_SuccessEvent;
     private int m_SuccessiveCorrectCount;
     private bool m_InProgress;
@@ -98,13 +101,23 @@ public class SimonSays : MonoBehaviour
 
             if (m_SelectedScreenIndex == -1 || m_SelectedScreenIndex != currentSymbol)
             {
+                if (m_FailureSound)
+                {
+                    m_FailureSound.Stop();
+                    m_FailureSound.Play();
+                }
+
                 m_InProgress = false;
-                Debug.Log("Fail");
                 yield break;
             }
         }
 
-        Debug.Log("Win");
+        if (m_SuccessSound)
+        {
+            m_SuccessSound.Stop();
+            m_SuccessSound.Play();
+        }
+
         m_InProgress = false;
         m_Finished = true;
         m_SuccessEvent?.Invoke();
