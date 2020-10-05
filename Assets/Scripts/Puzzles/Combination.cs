@@ -68,7 +68,7 @@ public class Combination : MonoBehaviour
                 var screen = (CombinationScreen)screensList[screenIndex];
                 screensList.RemoveAt(screenIndex);
 
-                screen.SetMaterial(item.m_Material);
+                screen.m_MeshFilter.sharedMesh = item.m_ScreenMesh;
                 screen.SetIndex(c);
             }
         }
@@ -143,4 +143,5 @@ public class CombinationItem
 {
     public Button m_Button;
     public Material m_Material;
+    public Mesh m_ScreenMesh;
 }

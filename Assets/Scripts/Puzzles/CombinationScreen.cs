@@ -5,7 +5,7 @@ using TMPro;
 
 public class CombinationScreen : MonoBehaviour
 {
-    public MeshRenderer m_ColorMesh;
+    public MeshFilter m_MeshFilter;
 
     private TextMeshProUGUI m_Text;
 
@@ -27,10 +27,5 @@ public class CombinationScreen : MonoBehaviour
         }
 
         m_Text.text = index.ToString();
-    }
-
-    public void SetMaterial(Material material)
-    {
-        m_ColorMesh.sharedMaterial = material;
     }
 }
