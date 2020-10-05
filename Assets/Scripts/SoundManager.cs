@@ -30,15 +30,6 @@ public class SoundManager : MonoBehaviour
         {
             this.HandleAudioSource(source, m_MusicType == source.m_MusicType);
         }
-
-        if (TankCharacterController.Instance != null
-            && TankCharacterController.Instance.Alive
-            && Time.time - m_LastChaseCheck > 0.2)
-        {
-            m_LastChaseCheck = Time.time;
-
-            this.SetMusicType(m_DefaultMusicType);
-        }
     }
 
     public void SetMusicType(MusicType type)
@@ -65,6 +56,14 @@ public class SoundManager : MonoBehaviour
         }
 
         source.m_AudioSource.volume = source.m_CurrentVolume;
+    }
+
+    public void ResetSounds()
+    {
+        foreach (var source in m_Music)
+        {
+            source.m_AudioSource?.Stop();
+        }
     }
 }
 

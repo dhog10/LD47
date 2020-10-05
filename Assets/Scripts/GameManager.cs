@@ -186,6 +186,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayer()
     {
+        SoundManager.Instance?.ResetSounds();
         TankCharacterController.Instance.Revive();
 
         var spawns = GameObject.FindObjectsOfType<SpawnPoint>();
