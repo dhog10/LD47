@@ -74,6 +74,7 @@ public class Combination : MonoBehaviour
         }
 
         m_CombinationIndex = 0;
+        m_Correct = true;
     }
 
     void Update()

@@ -42,6 +42,8 @@ public class TaskIndicator : Indicator
     public void Complete()
     {
         m_Complete = true;
+
+        Generator.Instance.PlayTaskSound();
     }
 
     public void Uncomplete()

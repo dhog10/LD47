@@ -6,6 +6,7 @@ public class Generator : MonoBehaviour
 {
     public static Generator Instance;
 
+    public AudioSource m_TaskActivateSound;
     public TaskIndicator[] m_Tasks;
 
     private void Awake()
@@ -21,5 +22,10 @@ public class Generator : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void PlayTaskSound()
+    {
+        m_TaskActivateSound?.Play();
     }
 }

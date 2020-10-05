@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var usable in this.Usables)
         {
-            if (!usable.gameObject.activeInHierarchy)
+            if (usable == null || usable.gameObject == null || !usable.gameObject.activeInHierarchy)
             {
                 continue;
             }
