@@ -48,6 +48,7 @@ public class TankCharacterController : MonoBehaviour
 
     private Rigidbody m_Rigidbody;
     private Animator m_Animator;
+    private float m_LastOnGround;
 
     public Holdable Holdable
         => m_Holdable;
@@ -61,21 +62,23 @@ public class TankCharacterController : MonoBehaviour
     public bool Alive
         => m_Alive;
 
-    public bool IsFalling
+    public bool IsGrounded
     {
         get
         {
             RaycastHit hit;
             if (Physics.Raycast(m_Collider.transform.position - new Vector3(0f, m_Collider.height * 0.4f, 0f), -Vector3.up, out hit, m_Collider.height * 0.2f))
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
     }
+    public bool IsFalling
+        => Time.time - m_LastOnGround > 0.15f;
 
     private void Awake()
     {
@@ -120,6 +123,11 @@ public class TankCharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (this.IsGrounded)
+        {
+            m_LastOnGround = Time.time;
+        }
+
         this.ProcessMovement();
     }
 

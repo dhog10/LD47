@@ -6,6 +6,8 @@ public class SteamPipe : MonoBehaviour
 {
     public AudioSource m_SteamSound;
     public ParticleSystem m_ParticleSystem;
+    public Collider m_BlockCollider;
+
     private bool m_Leaking = true;
     private float m_OriginalVolume;
 
@@ -33,6 +35,24 @@ public class SteamPipe : MonoBehaviour
 
         var volume = this.Leaking ? m_OriginalVolume : 0f;
         m_SteamSound.volume += (volume - m_SteamSound.volume) * Time.deltaTime * 3f;
+
+        if (m_BlockCollider != null)
+        {
+            if (this.Leaking)
+            {
+                if (!m_BlockCollider.enabled)
+                {
+                    m_BlockCollider.enabled = true;
+                }
+            }
+            else
+            {
+                if (m_BlockCollider.enabled)
+                {
+                    m_BlockCollider.enabled = false;
+                }
+            }
+        }
     }
 
     public void Seal(bool seal)
