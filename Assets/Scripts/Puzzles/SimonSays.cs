@@ -41,15 +41,15 @@ public class SimonSays : MonoBehaviour
         }
     }
 
-    public void StartGame()
-    {
-        if (m_InProgress || m_Finished)
-        {
-            return;
-        }
+    //public void StartGame()
+    //{
+    //    if (m_InProgress || m_Finished)
+    //    {
+    //        return;
+    //    }
 
-        StartCoroutine(this.Puzzle());
-    }
+    //    StartCoroutine(this.Puzzle());
+    //}
 
     private IEnumerator Puzzle()
     {
@@ -133,7 +133,12 @@ public class SimonSays : MonoBehaviour
 
     public void SelectScreen(int screenIndex)
     {
-        if (!m_UserSelecting)
+        if (!m_InProgress && !m_Finished)
+        {
+            StartCoroutine(this.Puzzle());
+            return;
+        }
+        else if (!m_UserSelecting)
         {
             return;
         }
