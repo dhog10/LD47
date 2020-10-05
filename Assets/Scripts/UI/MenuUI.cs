@@ -36,6 +36,7 @@ public class MenuUI : MonoBehaviour
             m_Frame.gameObject.SetActive(false);
             GameManager.Instance.LockCursor();
 
+            TankCharacterController.Instance.Kill();
             GameManager.Instance.EndGame(false);
         });
 
