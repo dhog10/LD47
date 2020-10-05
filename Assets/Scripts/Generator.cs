@@ -13,10 +13,12 @@ public class Generator : MonoBehaviour
     public TaskIndicator[] m_Tasks;
 
     private ParticleSystem[] m_ParticleFires;
+    private bool m_Exploded;
 
     private void Awake()
     {
         Instance = this;
+        m_Exploded = false;
     }
 
     void Start()
@@ -27,6 +29,8 @@ public class Generator : MonoBehaviour
         {
             fire.Stop();
         }
+
+        m_Exploded = false;
     }
 
     void Update()
@@ -37,6 +41,11 @@ public class Generator : MonoBehaviour
         {
             var severity = Mathf.Round((1f - (float)countdown.Time / (float)countdown.Duration) * m_ParticleFires.Length);
 
+            if (!m_AlarmSound.isPlaying && severity / m_ParticleFires.Length > 0.7f)
+            {
+                m_AlarmSound.Play();
+            }
+
             for (var i = 0; i < severity; i++)
             {
                 if (!m_ParticleFires[i].isPlaying)
@@ -44,8 +53,13 @@ public class Generator : MonoBehaviour
                     m_ParticleFires[i].Play();
                 }
             }
+
+            if (!m_Exploded && countdown.Time <= 0)
+            {
+                m_Exploded = true;
+                this.Explode();
+            }
         }
-        
     }
 
     public void Explode()

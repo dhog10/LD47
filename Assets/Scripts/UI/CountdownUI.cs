@@ -14,7 +14,7 @@ public class CountdownUI : MonoBehaviour
 
     void Update()
     {
-        var text = Countdown.Instance == null ? "" : Countdown.Instance.Time.ToString();
+        var text = Countdown.Instance == null ? "" : Countdown.Instance.Time.ToString("00");
         m_Text.text = text;
     }
 }
